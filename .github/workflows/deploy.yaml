@@ -1,4 +1,4 @@
-name: Deploy Vanilla JavaScript PWA Checklist App
+name: Deploy Web Trends Project 
 
 on:
   push:
