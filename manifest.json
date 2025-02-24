@@ -1,6 +1,6 @@
 {
-    "name": "To-Do List PWA",
-    "short_name": "ToDoPWA",
+    "name": "Blog App",
+    "short_name": "BlogAPP",
     "start_url": "/index.html",
     "display": "standalone",
     "background_color": "#f4f4f4",
