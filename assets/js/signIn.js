@@ -72,3 +72,19 @@ async function biometricSignIn() {
 // Attach Event Listeners to Buttons
 googleLoginBtn.addEventListener("click", signIn);
 biometricLoginBtn.addEventListener("click", biometricSignIn);
+document.addEventListener("DOMContentLoaded", () => {
+  const logoutBtn = document.getElementById("signOutBttn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      signOut(auth)
+        .then(() => {
+          console.log("User logged out");
+          localStorage.removeItem("user"); // Remove stored user data
+          window.location.href = "login.html"; // Redirect to login page
+        })
+        .catch((error) => {
+          console.error("Logout Error:", error);
+        });
+    });
+  }
+});

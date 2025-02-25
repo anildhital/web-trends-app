@@ -6,6 +6,17 @@
     <title>Book Blog</title>
     <link rel="stylesheet" href="../css/style.css" />
   </head>
+  <script type="module">
+    import { auth } from "../js/firebase.js";
+    import { onAuthStateChanged } from "firebase/auth";
+
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        // Redirect to login page if user is NOT logged in
+        window.location.href = "login.html";
+      }
+    });
+  </script>
 
   <body>
     <header>

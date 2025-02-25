@@ -1,31 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><script src="/index.adf00102.js"></script>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#0078D7">
-    <title>Checklist App</title>
+    <title>Book Blog</title>
     <link rel="stylesheet" href="/index.b06117f5.css">
-    <link rel="manifest" href="/up_/up_/manifest.webmanifest">
-    <link rel="icon" type="image/x-icon" href="/favicon.26bafa54.ico">
-</head>
-<!-- Google tag (gtag.js) -->
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QLL1Z9B3N1" defer=""></script>
-<script>window.dataLayer = window.dataLayer || [];
-function gtag() {
-    dataLayer.push(arguments);
-}
-gtag('js', new Date());
-gtag('config', 'G-QLL1Z9B3N1');
+  </head>
 
-</script>
-<body>
+  <body>
     <header>
-        <h1>My To-Do List</h1>
+      <h1>My Book Blog</h1>
+      <nav>
+        <ul>
+          <li><button id="signOutBttn" class="btn">Sign Out</button></li>
+        </ul>
+      </nav>
     </header>
-    <main>
-       <button id="signIn">Sign In</button>
+
+    <main class="container">
+      <div class="main-content">
+        <!-- Left Side: Intro About Book Blog -->
+        <aside class="intro-section">
+          <h2>Welcome to My Book Blog 📚</h2>
+          <p>
+            Discover, collect, and share your favorite books. Whether you're a
+            passionate reader or just exploring new titles, this is your
+            personal space to **add, edit, and organize** your book collection
+            effortlessly.
+          </p>
+        </aside>
+
+        <!-- Right Side: Book Collection and Forms -->
+        <div class="book-content">
+          <!-- Book Collection Section -->
+          <section id="book-list">
+            <h2>Book Collection</h2>
+            <ul id="books">
+              <!-- Books will be dynamically added here -->
+            </ul>
+          </section>
+
+          <!-- Add New Book Section -->
+          <section id="add-book">
+            <h2>Add a New Book</h2>
+            <form id="book-form">
+              <label for="title">Title:</label>
+              <input type="text" id="title" required="">
+
+              <label for="author">Author:</label>
+              <input type="text" id="author" required="">
+
+              <label for="genre">Genre:</label>
+              <input type="text" id="genre" required="">
+
+              <button type="submit" class="btn">Add Book</button>
+            </form>
+          </section>
+
+          <!-- Chatbot Section -->
+          <section id="chatbot">
+            <h2>Ask the AI Chatbot</h2>
+            <div id="chatbot-box">
+              <p>Chatbot coming soon...</p>
+            </div>
+          </section>
+        </div>
+      </div>
     </main>
+    <!-- JavaScript Files -->
+    <script src="/index.604151a6.js" defer=""></script>
     <script src="/index.43a34646.js" defer=""></script>
-</body>
+    <script defer="" src="/index.23740baf.js"></script>
+    <script defer="" src="/index.226f76d6.js"></script>
+    <!-- Make sure this file exists -->
+    ....
+    <footer>
+      <p>&copy; 2025 Book Blog | Anil Dhital | All Rights Reserved</p>
+    </footer>
+  </body>
 </html>
