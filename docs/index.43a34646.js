@@ -599,31 +599,75 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 var _firebaseJs = require("./firebase.js");
 var _auth = require("firebase/auth");
 const provider = new (0, _auth.GoogleAuthProvider)();
-const signInBttn = document.getElementById("signIn");
-const sw = new URL(require("9f41ac59bb29f729"));
-if ("serviceWorker" in navigator) {
-    const s = navigator.serviceWorker;
-    s.register(sw.href, {
-        scope: "/web-trends-app/"
-    }).then((_)=>console.log("Service Worker Registered for scope:", sw.href, "with", "file:///assets/js/signIn.js")).catch((err)=>console.error("Service Worker Error:", err));
-}
+const googleLoginBtn = document.getElementById("google-login");
+const biometricLoginBtn = document.getElementById("biometric-login");
+const errorMessage = document.getElementById("login-error");
+// Register Service Worker (For PWA support)
+const serviceWorkerUrl = new URL(require("9f41ac59bb29f729"));
+if ("serviceWorker" in navigator) navigator.serviceWorker.register(serviceWorkerUrl.href, {
+    scope: "/"
+}).then(()=>console.log("Service Worker Registered Successfully")).catch((err)=>console.error("Service Worker Registration Failed:", err));
+// Google Sign-In Function
 function signIn() {
     (0, _auth.signInWithPopup)((0, _firebaseJs.auth), provider).then((result)=>{
-        const credential = (0, _auth.GoogleAuthProvider).credentialFromResult(result);
-        const token = credential.accessToken;
         const user = result.user;
-        localStorage.setItem("email", JSON.stringify(user.email));
-        window.location = "tasks.html";
+        localStorage.setItem("user", JSON.stringify({
+            email: user.email,
+            name: user.displayName
+        }));
+        window.location.href = "main.html"; // Redirect to homepage
     }).catch((error)=>{
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        const email = error.customData.email;
-        const credential = (0, _auth.GoogleAuthProvider).credentialFromError(error);
+        console.error("Google Login Error:", error.message);
+        errorMessage.style.display = "block";
+        errorMessage.innerText = "Google Login Failed. Try again.";
     });
 }
-signInBttn.addEventListener("click", function(event) {
-    signIn((0, _firebaseJs.auth), provider);
-});
+// Biometric Authentication Function
+async function biometricSignIn() {
+    try {
+        if (!window.PublicKeyCredential) {
+            alert("Biometric authentication not supported in this browser.");
+            return;
+        }
+        const credential = await navigator.credentials.create({
+            publicKey: {
+                challenge: new Uint8Array(32),
+                rp: {
+                    name: "Book Blog"
+                },
+                user: {
+                    id: new Uint8Array(32),
+                    name: "biometric_user",
+                    displayName: "Biometric User"
+                },
+                pubKeyCredParams: [
+                    {
+                        alg: -7,
+                        type: "public-key"
+                    }
+                ],
+                authenticatorSelection: {
+                    userVerification: "required"
+                },
+                timeout: 60000
+            }
+        });
+        if (credential) {
+            console.log("Biometric Authentication Successful");
+            localStorage.setItem("user", JSON.stringify({
+                name: "Biometric User"
+            }));
+            window.location.href = "main.html"; // Redirect to homepage
+        }
+    } catch (error) {
+        console.error("Biometric Login Error:", error);
+        errorMessage.style.display = "block";
+        errorMessage.innerText = "Biometric Login Failed. Try again.";
+    }
+}
+// Attach Event Listeners to Buttons
+googleLoginBtn.addEventListener("click", signIn);
+biometricLoginBtn.addEventListener("click", biometricSignIn);
 
 },{"./firebase.js":"38sjH","firebase/auth":"79vzg","9f41ac59bb29f729":"oGVo0"}],"oGVo0":[function(require,module,exports,__globalThis) {
 module.exports = require("7d54aefc03d27bdb").getBundleURL('11vdL') + "service-worker.7754582a.js" + "?" + Date.now();
