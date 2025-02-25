@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0078D7" />
+    <title>Login - Book Blog</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="manifest" href="../../manifest.json" />
+    <link rel="icon" type="image/x-icon" href="../icons/favicon.ico" />
+  </head>
+
+  <!-- Google Analytics Tag -->
+  <script
+    type="module"
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-QLL1Z9B3N1"
+  ></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+    gtag("config", "G-QLL1Z9B3N1");
+  </script>
+  <script>
+    src = "";
+  </script>
+
+  <body>
+    <header>
+      <h1>Welcome to Book Blog</h1>
+    </header>
+
+    <main class="login-container">
+      <p>Login to manage your book collection</p>
+
+      <!-- Google Sign-In -->
+      <button id="google-login">Sign in with Google</button>
+
+      <!-- Biometric Authentication -->
+      <button id="biometric-login">Sign in with Biometric</button>
+
+      <!-- Error Message (Hidden Initially) -->
+      <p id="login-error" class="error-message" style="display: none">
+        Login failed. Please try again.
+      </p>
+    </main>
+
+    <script defer src="../js/firebase.js"></script>
+    <script defer src="../js/service_worker.js"></script>
+    <script defer src="../js/signIn.js"></script>
+    <script defer src="../js/tasks.js"></script>
+  </body>
+</html>

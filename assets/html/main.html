@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Blog</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <script defer src="../js/task.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>My Book Blog</h1>
+      <nav>
+        <ul>
+          <li><button id="signOutBttn" class="btn">Sign Out</button></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="container">
+      <div class="main-content">
+        <!-- Left Side: Intro About Book Blog -->
+        <aside class="intro-section">
+          <h2>Welcome to My Book Blog 📚</h2>
+          <p>
+            Discover, collect, and share your favorite books. Whether you're a
+            passionate reader or just exploring new titles, this is your
+            personal space to **add, edit, and organize** your book collection
+            effortlessly.
+          </p>
+        </aside>
+
+        <!-- Right Side: Book Collection and Forms -->
+        <div class="book-content">
+          <!-- Book Collection Section -->
+          <section id="book-list">
+            <h2>Book Collection</h2>
+            <ul id="books">
+              <!-- Books will be dynamically added here -->
+            </ul>
+          </section>
+
+          <!-- Add New Book Section -->
+          <section id="add-book">
+            <h2>Add a New Book</h2>
+            <form id="book-form">
+              <label for="title">Title:</label>
+              <input type="text" id="title" required />
+
+              <label for="author">Author:</label>
+              <input type="text" id="author" required />
+
+              <label for="genre">Genre:</label>
+              <input type="text" id="genre" required />
+
+              <button type="submit" class="btn">Add Book</button>
+            </form>
+          </section>
+
+          <!-- Chatbot Section -->
+          <section id="chatbot">
+            <h2>Ask the AI Chatbot</h2>
+            <div id="chatbot-box">
+              <p>Chatbot coming soon...</p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Book Blog | Anil Dhital | All Rights Reserved</p>
+    </footer>
+  </body>
+</html>
