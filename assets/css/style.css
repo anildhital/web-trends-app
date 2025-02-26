@@ -9,14 +9,14 @@
     font-family: 'Poppins', sans-serif;
 }
 
-/* ========== GENERAL STYLES FOR THE WHOLE WEBSITE ========== */
+/* 🔹 Body Background */
 body {
-    background: linear-gradient(to right, #327de6, #1d70ec); /* Blue gradient */
+    background: linear-gradient(to right, #3A7BD5, #054A91); /* Blue gradient */
     color: #333;
     padding: 20px;
 }
 
-/* Header */
+/* 🔥 Header */
 header {
     background: rgba(247, 247, 246, 0.95);
     padding: 15px 20px;
@@ -31,7 +31,7 @@ header h1 {
     font-weight: 600;
 }
 
-/* Navigation Bar */
+/* 🔹 Navigation Bar */
 .navbar {
     display: flex;
     justify-content: center;
@@ -61,10 +61,10 @@ header h1 {
 }
 
 .navbar a:hover {
-    color: #F76C6C; /* Soft red for contrast */
+    color: #E63946; /* Red hover */
 }
 
-/* Main Content */
+/* 🔥 Main Content */
 main {
     max-width: 900px;
     margin: 20px auto;
@@ -74,213 +74,206 @@ main {
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Book List */
-#book-list h2,
-#add-book h2,
-#chatbot h2 {
-    color: #074b90;
-    font-size: 22px;
-    margin-bottom: 15px;
+/* ========== 📚 Book Collection ========== */
+#book-list, #add-book {
+    max-width: 600px;
+    margin: 30px auto;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
-ul#books {
+#book-list h2, #add-book h2 {
+    color: #054A91;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* ✅ Input Fields */
+#book-form input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid #ccc;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* 🌟 Input Focus Effect */
+#book-form input:focus {
+    border-color: #F4A261; /* Orange focus */
+    box-shadow: 0px 4px 10px rgba(244, 162, 97, 0.4);
+    outline: none;
+}
+
+/* 🔵 Add Book Button */
+#book-form button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 10px;
+    background: linear-gradient(135deg, #3A7BD5, #054A91);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+#book-form button:hover {
+    background: linear-gradient(135deg, #054A91, #3A7BD5);
+    transform: scale(1.05);
+}
+
+/* ========== 🖊 Book List ========== */
+#books {
     list-style: none;
     padding: 0;
 }
 
-ul#books li {
-    background: #F9F9F9;
-    padding: 12px;
+#books li {
+    background: #f9f9f9;
+    padding: 15px;
     margin: 10px 0;
-    border-radius: 8px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    transition: background 0.3s ease-in-out;
 }
 
-ul#books li button {
-    background: #F76C6C;
-    color: #fff;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.3s, transform 0.2s ease-in-out;
+#books li:hover {
+    background: #e3f2fd;
 }
 
-ul#books li button:hover {
-    background: #D9534F;
-    transform: scale(1.05);
+/* 🔹 Book Title */
+.book-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #1d3557;
 }
 
-/* Add Book Form */
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-label {
-    font-weight: 500;
-    color: #054A91;
-}
-
-input,
-textarea {
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 1em;
-    width: 100%;
-}
-
-textarea {
-    height: 120px;
-}
-
-/* Buttons */
+/* 🔥 Buttons */
 button {
-    padding: 14px;
-    background: #3A7BD5;
-    color: #fff;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-weight: bold;
     border: none;
     border-radius: 6px;
-    font-size: 1.1em;
     cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    margin-left: 8px;
+}
+
+/* 🔵 Edit */
+button.edit {
+    background: #2a9d8f;
+    color: white;
+}
+
+button.edit:hover {
+    background: #21867a;
+}
+
+/* 🗑 Delete */
+button.delete {
+    background: #e63946;
+    color: white;
+}
+
+button.delete:hover {
+    background: #c91829;
+}
+
+/* 💾 Save */
+button.save {
+    background: #f4a261;
+    color: #fff;
+}
+
+button.save:hover {
+    background: #e07a5f;
+}
+
+/* ========== 🤖 AI Chatbot Section ========== */
+#chatbot {
+    margin-top: 40px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+#chatbot h2 {
+    color: #054A91;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* 🔹 Chat Input */
+#chat-input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 2px solid #3A7BD5;
+    font-size: 16px;
     transition: all 0.3s ease-in-out;
 }
 
-button:hover {
-    background: #054A91;
+#chat-input:focus {
+    border-color: #F4A261;
+    box-shadow: 0px 4px 10px rgba(244, 162, 97, 0.4);
+    outline: none;
+}
+
+/* 🔥 Send Button */
+#send-btn {
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #3A7BD5, #054A91);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#send-btn:hover {
+    background: linear-gradient(135deg, #054A91, #3A7BD5);
     transform: scale(1.05);
 }
 
-button:active {
+#send-btn:active {
     transform: scale(0.95);
 }
 
-/* Chatbot Section */
-#chatbot-box {
-    background: #F9F9F9;
-    padding: 15px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* Footer */
-footer {
-    background: #054A91;
-    color: white;
-    padding: 15px 0;
-    text-align: center;
-    font-size: 14px;
-    margin-top: 20px;
-    border-radius: 10px;
-}
-
-/* Responsive Design */
+/* ✅ Mobile-Friendly */
 @media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .navbar ul {
-        flex-direction: column;
-        padding: 0;
-    }
-
-    ul#books li {
+    #books li {
         flex-direction: column;
         align-items: flex-start;
     }
 
-    main {
-        width: 95%;
-        padding: 18px;
-    }
-}
-
-/* ========== LOGIN PAGE STYLES ========== */
-body.login-page {
-    background: linear-gradient(135deg, #327de6, #1d70ec); /* Smooth Blue Gradient */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    padding: 20px;
-    color: white;
-}
-
-/* Fade In Animation */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Login Container */
-.login-container {
-    background: rgba(255, 255, 255, 0.98);
-    padding: 45px;
-    border-radius: 14px;
-    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.25);
-    text-align: center;
-    max-width: 420px;
-    width: 100%;
-    animation: fadeIn 0.8s ease-in-out;
-}
-
-/* Title */
-.login-container h1 {
-    font-size: 30px;
-    color: #054A91;
-    font-weight: 700;
-    margin-bottom: 12px;
-}
-
-.login-container p {
-    font-size: 18px;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-/* Buttons */
-.login-container button {
-    width: 100%;
-    padding: 14px;
-    margin: 14px 0;
-    background: #3A7BD5;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 1.2em;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.login-container button:hover {
-    background: #054A91;
-    transform: scale(1.07);
-}
-
-/* Responsive Design for Login Page */
-@media (max-width: 480px) {
-    .login-container {
-        width: 90%;
-        padding: 30px;
+    button {
+        width: 100%;
+        text-align: center;
     }
 
-    .login-container h1 {
-        font-size: 24px;
+    #chat-input {
+        font-size: 14px;
+        padding: 10px;
     }
 
-    .login-container button {
-        font-size: 1.1em;
-        padding: 12px;
+    #send-btn {
+        font-size: 14px;
+        padding: 10px 16px;
     }
 }
