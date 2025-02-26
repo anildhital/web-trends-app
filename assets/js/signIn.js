@@ -16,6 +16,17 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
   }
+  // Google Login
+  document.getElementById("google-login").addEventListener("click", () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        console.log("User logged in:", result.user);
+        window.location.href = "index.html"; // Redirect to homepage
+      })
+      .catch((error) => {
+        console.error("Login failed:", error);
+      });
+  });
 
   const logoutBtn = document.getElementById("signOutBttn");
   if (logoutBtn) {
