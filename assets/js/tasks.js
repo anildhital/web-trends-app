@@ -22,7 +22,7 @@ const sendButton = document.getElementById("send-btn");
 const chatHistory = document.getElementById("chat-history");
 
 // ✅ AI API Setup
-const API_KEY = "YOUR_GEMINI_API_KEY"; // 🔹 Replace with your Gemini AI API Key
+const API_KEY = "AIzaSyAMP1E9AObYzGRx4OK3n_NgkEEoCqEsK0M"; // 🔹 Replace with your Gemini AI API Key
 const genAI = new GoogleGenerativeAI(API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
