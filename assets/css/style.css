@@ -283,3 +283,42 @@ body.login-page {
         padding: 12px;
     }
 }
+/* =============================================== */
+/* ✅ Responsive Design Fixes for Mobile Devices  */
+/* =============================================== */
+
+/* 🔹 Make Navigation Responsive */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .navbar ul {
+        flex-direction: column;
+        padding: 0;
+    }
+
+    .navbar li {
+        margin-bottom: 10px;
+    }
+}
+
+/* 🔹 Make Book List Responsive */
+@media (max-width: 600px) {
+    ul#books li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .book-details {
+        width: 100%;
+    }
+
+    button {
+        width: 100%;
+        margin-top: 5px;
+    }
+}
+
+/* 🔹 Fix Fo
