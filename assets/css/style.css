@@ -9,6 +9,7 @@
     font-family: 'Poppins', sans-serif;
 }
 
+/* ========== GENERAL STYLES FOR THE WHOLE WEBSITE ========== */
 body {
     background: linear-gradient(to right, #327de6, #1d70ec); /* Blue gradient */
     color: #333;
@@ -17,7 +18,7 @@ body {
 
 /* Header */
 header {
-    background: rgba(247, 247, 246, 0.799);
+    background: rgba(247, 247, 246, 0.95);
     padding: 15px 20px;
     text-align: center;
     border-radius: 10px;
@@ -43,6 +44,7 @@ header h1 {
 .navbar ul {
     list-style: none;
     display: flex;
+    flex-wrap: wrap; /* Ensures it adjusts for smaller screens */
 }
 
 .navbar li {
@@ -55,7 +57,7 @@ header h1 {
     font-weight: 500;
     font-size: 1.1em;
     padding: 10px 15px;
-    transition: 0.3s ease;
+    transition: 0.3s ease-in-out;
 }
 
 .navbar a:hover {
@@ -67,9 +69,9 @@ main {
     max-width: 900px;
     margin: 20px auto;
     background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 /* Book List */
@@ -89,7 +91,7 @@ ul#books {
 
 ul#books li {
     background: #F9F9F9;
-    padding: 10px;
+    padding: 12px;
     margin: 10px 0;
     border-radius: 8px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
@@ -102,21 +104,22 @@ ul#books li button {
     background: #F76C6C;
     color: #fff;
     border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
+    padding: 6px 12px;
+    border-radius: 6px;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: background 0.3s, transform 0.2s ease-in-out;
 }
 
 ul#books li button:hover {
     background: #D9534F;
+    transform: scale(1.05);
 }
 
 /* Add Book Form */
 form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
 }
 
 label {
@@ -124,35 +127,38 @@ label {
     color: #054A91;
 }
 
-input {
-    padding: 10px;
+input,
+textarea {
+    padding: 12px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 6px;
     font-size: 1em;
+    width: 100%;
 }
 
 textarea {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1em;
     height: 120px;
 }
 
 /* Buttons */
 button {
-    padding: 12px;
+    padding: 14px;
     background: #3A7BD5;
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     font-size: 1.1em;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.3s ease-in-out;
 }
 
 button:hover {
     background: #054A91;
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: scale(0.95);
 }
 
 /* Chatbot Section */
@@ -194,12 +200,13 @@ footer {
 
     main {
         width: 95%;
-        padding: 15px;
+        padding: 18px;
     }
 }
-/* Styles Specifically for the Login Page */
+
+/* ========== LOGIN PAGE STYLES ========== */
 body.login-page {
-    background: linear-gradient(to right, #327de6, #1d70ec); /* Blue gradient */
+    background: linear-gradient(135deg, #327de6, #1d70ec); /* Smooth Blue Gradient */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -208,27 +215,34 @@ body.login-page {
     color: white;
 }
 
+/* Fade In Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 /* Login Container */
 .login-container {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.98);
+    padding: 45px;
+    border-radius: 14px;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.25);
     text-align: center;
-    max-width: 400px;
+    max-width: 420px;
     width: 100%;
+    animation: fadeIn 0.8s ease-in-out;
 }
 
 /* Title */
 .login-container h1 {
-    font-size: 26px;
+    font-size: 30px;
     color: #054A91;
-    font-weight: 600;
-    margin-bottom: 10px;
+    font-weight: 700;
+    margin-bottom: 12px;
 }
 
 .login-container p {
-    font-size: 16px;
+    font-size: 18px;
     color: #333;
     margin-bottom: 20px;
 }
@@ -236,23 +250,25 @@ body.login-page {
 /* Buttons */
 .login-container button {
     width: 100%;
-    padding: 12px;
-    margin: 10px 0;
+    padding: 14px;
+    margin: 14px 0;
     background: #3A7BD5;
     color: white;
     border: none;
     border-radius: 6px;
-    font-size: 1.1em;
+    font-size: 1.2em;
     font-weight: 500;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .login-container button:hover {
     background: #054A91;
+    transform: scale(1.07);
 }
 
-/* Responsive Design */
+/* Responsive Design for Login Page */
 @media (max-width: 480px) {
     .login-container {
         width: 90%;
@@ -260,11 +276,11 @@ body.login-page {
     }
 
     .login-container h1 {
-        font-size: 22px;
+        font-size: 24px;
     }
 
     .login-container button {
-        font-size: 1em;
-        padding: 10px;
+        font-size: 1.1em;
+        padding: 12px;
     }
 }

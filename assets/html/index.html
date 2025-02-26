@@ -17,6 +17,7 @@
     </header>
 
     <main>
+      <!-- Section to Display Book Collection -->
       <section id="book-list">
         <h2>Book Collection</h2>
         <ul id="books">
@@ -24,6 +25,7 @@
         </ul>
       </section>
 
+      <!-- Section to Add a New Book -->
       <section id="add-book">
         <h2>Add a New Book</h2>
         <form id="book-form">
@@ -53,11 +55,10 @@
 
       onAuthStateChanged(auth, (user) => {
         if (!user) {
-          window.location.href = "login.html"; // Redirect if not logged in
+          window.location.href = "login.html"; // Redirect to login if not authenticated
         }
       });
     </script>
-    <script type="module" src="../js/firebase.js"></script>
     <script type="module" src="../js/signIn.js"></script>
     <script type="module" src="../js/tasks.js"></script>
     <script defer src="../js/service-worker.js"></script>
