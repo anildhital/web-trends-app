@@ -1,44 +1,30 @@
-import { auth, provider } from "./firebase.js"; // ✅ Make sure provider is exported
-import { signInWithPopup, signOut } from "firebase/auth";
+import { auth } from "./firebase.js";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
-// Ensure document is fully loaded before running
-document.addEventListener("DOMContentLoaded", () => {
-  const googleLoginBtn = document.getElementById("google-login");
-  if (googleLoginBtn) {
-    googleLoginBtn.addEventListener("click", () => {
-      signInWithPopup(auth, provider)
-        .then((result) => {
-          console.log("User logged in:", result.user);
-          window.location.href = "index.html"; // Redirect to homepage
-        })
-        .catch((error) => {
-          console.error("Login failed:", error);
-        });
-    });
-  }
-  // Google Login
-  document.getElementById("google-login").addEventListener("click", () => {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        console.log("User logged in:", result.user);
-        window.location.href = "index.html"; // Redirect to homepage
-      })
-      .catch((error) => {
-        console.error("Login failed:", error);
-      });
-  });
+const provider = new GoogleAuthProvider();
+const googleLoginBtn = document.getElementById("google-login");
+const biometricLoginBtn = document.getElementById("biometric-login");
 
-  const logoutBtn = document.getElementById("signOutBttn");
-  if (logoutBtn) {
-    logoutBtn.addEventListener("click", () => {
-      signOut(auth)
-        .then(() => {
-          console.log("User logged out");
-          window.location.href = "login.html";
+// Google Sign-In Function
+googleLoginBtn.addEventListener("click", () => {
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          email: result.user.email,
+          name: result.user.displayName,
         })
-        .catch((error) => {
-          console.error("Logout failed:", error);
-        });
+      );
+      window.location.href = "index.html"; // ✅ Redirect to homepage
+    })
+    .catch((error) => {
+      console.error("Google Login Error:", error.message);
+      alert("Google Login Failed. Try again.");
     });
-  }
+});
+
+// Biometric Authentication Function (Optional)
+biometricLoginBtn.addEventListener("click", async () => {
+  alert("Biometric Authentication is not yet implemented.");
 });

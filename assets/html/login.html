@@ -5,24 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login - Book Blog</title>
     <link rel="stylesheet" href="../css/style.css" />
-    <!-- ✅ Link to the main CSS file -->
   </head>
-  <script type="module">
-    import { auth } from "../js/firebase.js";
-    import { onAuthStateChanged } from "firebase/auth";
-
-    onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        window.location.href = "login.html"; // Redirect to login if not logged in
-      }
-    });
-  </script>
-
   <body class="login-page">
-    <!-- ✅ Ensures login styles apply -->
-
     <div class="login-container">
-      <!-- ✅ Added class for proper styling -->
       <h1>Welcome to Book Blog</h1>
       <p>Login to manage your book collection</p>
       <button id="google-login">Login with Google</button>
@@ -32,6 +17,17 @@
     <!-- JavaScript Files -->
     <script type="module" src="../js/firebase.js"></script>
     <script type="module" src="../js/signIn.js"></script>
-    <script type="module"></script>
+
+    <!-- ✅ Corrected Auth Check to Redirect Logged-in Users to index.html -->
+    <script type="module">
+      import { auth } from "../js/firebase.js";
+      import { onAuthStateChanged } from "firebase/auth";
+
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          window.location.href = "index.html"; // ✅ Redirect logged-in users
+        }
+      });
+    </script>
   </body>
 </html>
