@@ -9,11 +9,22 @@ import {
 } from "firebase/firestore";
 import { auth } from "./firebase.js";
 import { onAuthStateChanged, signOut } from "firebase/auth";
+import { GoogleGenerativeAI } from "@google/generative-ai"; // 🔹 Import AI
 
 // References to HTML elements
 const bookForm = document.getElementById("book-form");
 const bookList = document.getElementById("books");
 const signOutButton = document.getElementById("signOutBttn");
+
+// AI Chatbot Elements
+const chatInput = document.getElementById("chat-input");
+const sendButton = document.getElementById("send-btn");
+const chatHistory = document.getElementById("chat-history");
+
+// ✅ AI API Setup
+const API_KEY = "YOUR_GEMINI_API_KEY"; // 🔹 Replace with your Gemini AI API Key
+const genAI = new GoogleGenerativeAI(API_KEY);
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 // Ensure user is authenticated
 onAuthStateChanged(auth, (user) => {
@@ -142,7 +153,51 @@ function editBook(li, id, oldTitle, oldAuthor, oldGenre) {
   });
 }
 
-// Sign Out Function
+// ✅ AI Chatbot Functionality
+async function askChatBot(prompt) {
+  if (!prompt) {
+    appendMessage("Please enter a question.");
+    return;
+  }
+
+  appendMessage(`🧑‍💻 You: ${prompt}`, "user");
+
+  try {
+    let result = await model.generateContent(prompt);
+    let responseText = result.response.text();
+
+    appendMessage(`🤖 AI: ${responseText}`, "bot");
+  } catch (error) {
+    console.error("AI Chatbot Error:", error);
+    appendMessage("❌ Error: Unable to get a response. Try again.");
+  }
+
+  chatInput.value = ""; // Clear input
+}
+
+// ✅ Append AI Responses to Chat History
+function appendMessage(message, sender = "bot") {
+  let msgDiv = document.createElement("div");
+  msgDiv.textContent = message;
+  msgDiv.className = sender === "user" ? "user-message" : "bot-message";
+  chatHistory.appendChild(msgDiv);
+  chatHistory.scrollTop = chatHistory.scrollHeight; // Auto-scroll
+}
+
+// ✅ Event Listeners for AI Chatbot
+sendButton.addEventListener("click", () => {
+  let prompt = chatInput.value.trim();
+  askChatBot(prompt);
+});
+
+// Allow Enter Key to Send Message
+chatInput.addEventListener("keypress", function (event) {
+  if (event.key === "Enter") {
+    sendButton.click();
+  }
+});
+
+// ✅ Sign Out Function
 signOutButton.addEventListener("click", () => {
   signOut(auth)
     .then(() => {
@@ -154,5 +209,5 @@ signOutButton.addEventListener("click", () => {
     });
 });
 
-// Load books when the page loads
+// ✅ Load books when the page loads
 window.addEventListener("DOMContentLoaded", renderBooks);
