@@ -15,8 +15,7 @@
     </div>
 
     <!-- JavaScript Files -->
-    <script type="module" src="../js/firebase.js"></script>
-    <script type="module" src="../js/signIn.js"></script>
+
     <script type="module">
       import { auth } from "../js/firebase.js";
       import { onAuthStateChanged } from "firebase/auth";
@@ -27,5 +26,9 @@
         }
       });
     </script>
+    <script type="module" src="../js/firebase.js"></script>
+    <script type="module" src="../js/signIn.js"></script>
+    <script type="module" src="../js/tasks.js"></script>
+    <script defer src="../js/service-worker.js"></script>
   </body>
 </html>
