@@ -9,16 +9,15 @@
     font-family: 'Poppins', sans-serif;
 }
 
-/* 🔹 Body Background */
 body {
-    background: linear-gradient(to right, #3A7BD5, #054A91); /* Blue gradient */
+    background: linear-gradient(to right, #327de6, #1d70ec); /* Blue gradient */
     color: #333;
     padding: 20px;
 }
 
-/* 🔥 Header */
+/* Header */
 header {
-    background: rgba(247, 247, 246, 0.95);
+    background: rgba(247, 247, 246, 0.799);
     padding: 15px 20px;
     text-align: center;
     border-radius: 10px;
@@ -31,7 +30,7 @@ header h1 {
     font-weight: 600;
 }
 
-/* 🔹 Navigation Bar */
+/* Navigation Bar */
 .navbar {
     display: flex;
     justify-content: center;
@@ -44,7 +43,6 @@ header h1 {
 .navbar ul {
     list-style: none;
     display: flex;
-    flex-wrap: wrap; /* Ensures it adjusts for smaller screens */
 }
 
 .navbar li {
@@ -57,223 +55,217 @@ header h1 {
     font-weight: 500;
     font-size: 1.1em;
     padding: 10px 15px;
-    transition: 0.3s ease-in-out;
+    transition: 0.3s ease;
 }
 
 .navbar a:hover {
-    color: #E63946; /* Red hover */
+    color: #F76C6C; /* Soft red for contrast */
 }
 
-/* 🔥 Main Content */
+/* Main Content */
 main {
     max-width: 900px;
     margin: 20px auto;
     background: #fff;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* ========== 📚 Book Collection ========== */
-#book-list, #add-book {
-    max-width: 600px;
-    margin: 30px auto;
-    background: #ffffff;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+/* Book List */
+#book-list h2,
+#add-book h2,
+#chatbot h2 {
+    color: #074b90;
+    font-size: 22px;
+    margin-bottom: 15px;
     text-align: center;
 }
 
-#book-list h2, #add-book h2 {
-    color: #054A91;
-    font-size: 22px;
-    font-weight: bold;
-    margin-bottom: 15px;
-}
-
-/* ✅ Input Fields */
-#book-form input {
-    width: 100%;
-    padding: 12px;
-    border-radius: 8px;
-    border: 2px solid #ccc;
-    font-size: 16px;
-    transition: all 0.3s ease-in-out;
-}
-
-/* 🌟 Input Focus Effect */
-#book-form input:focus {
-    border-color: #F4A261; /* Orange focus */
-    box-shadow: 0px 4px 10px rgba(244, 162, 97, 0.4);
-    outline: none;
-}
-
-/* 🔵 Add Book Button */
-#book-form button {
-    width: 100%;
-    padding: 14px;
-    margin-top: 10px;
-    background: linear-gradient(135deg, #3A7BD5, #054A91);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-}
-
-#book-form button:hover {
-    background: linear-gradient(135deg, #054A91, #3A7BD5);
-    transform: scale(1.05);
-}
-
-/* ========== 🖊 Book List ========== */
-#books {
+ul#books {
     list-style: none;
     padding: 0;
 }
 
-#books li {
-    background: #f9f9f9;
-    padding: 15px;
+ul#books li {
+    background: #F9F9F9;
+    padding: 10px;
     margin: 10px 0;
-    border-radius: 10px;
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: background 0.3s ease-in-out;
 }
 
-#books li:hover {
-    background: #e3f2fd;
-}
-
-/* 🔹 Book Title */
-.book-title {
-    font-size: 18px;
-    font-weight: bold;
-    color: #1d3557;
-}
-
-/* 🔥 Buttons */
-button {
-    padding: 10px 14px;
-    font-size: 14px;
-    font-weight: bold;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    margin-left: 8px;
-}
-
-/* 🔵 Edit */
-button.edit {
-    background: #2a9d8f;
-    color: white;
-}
-
-button.edit:hover {
-    background: #21867a;
-}
-
-/* 🗑 Delete */
-button.delete {
-    background: #e63946;
-    color: white;
-}
-
-button.delete:hover {
-    background: #c91829;
-}
-
-/* 💾 Save */
-button.save {
-    background: #f4a261;
+ul#books li button {
+    background: #F76C6C;
     color: #fff;
-}
-
-button.save:hover {
-    background: #e07a5f;
-}
-
-/* ========== 🤖 AI Chatbot Section ========== */
-#chatbot {
-    margin-top: 40px;
-    padding: 20px;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
-    text-align: center;
-}
-
-#chatbot h2 {
-    color: #054A91;
-    font-size: 22px;
-    font-weight: bold;
-}
-
-/* 🔹 Chat Input */
-#chat-input {
-    width: 100%;
-    padding: 12px;
-    border-radius: 10px;
-    border: 2px solid #3A7BD5;
-    font-size: 16px;
-    transition: all 0.3s ease-in-out;
-}
-
-#chat-input:focus {
-    border-color: #F4A261;
-    box-shadow: 0px 4px 10px rgba(244, 162, 97, 0.4);
-    outline: none;
-}
-
-/* 🔥 Send Button */
-#send-btn {
-    padding: 12px 20px;
-    background: linear-gradient(135deg, #3A7BD5, #054A91);
-    color: white;
     border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
     cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s;
 }
 
-#send-btn:hover {
-    background: linear-gradient(135deg, #054A91, #3A7BD5);
-    transform: scale(1.05);
+ul#books li button:hover {
+    background: #D9534F;
 }
 
-#send-btn:active {
-    transform: scale(0.95);
+/* Add Book Form */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-/* ✅ Mobile-Friendly */
+label {
+    font-weight: 500;
+    color: #054A91;
+}
+
+input,
+textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    width: 100%;
+}
+
+textarea {
+    height: 120px;
+}
+
+/* Buttons */
+button {
+    padding: 12px;
+    background: #3A7BD5;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #054A91;
+}
+
+/* Chatbot Section */
+#chatbot-box {
+    background: #F9F9F9;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer */
+footer {
+    background: #054A91;
+    color: white;
+    padding: 15px 0;
+    text-align: center;
+    font-size: 14px;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-    #books li {
+    .navbar {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .navbar ul {
+        flex-direction: column;
+        padding: 0;
+    }
+
+    ul#books li {
         flex-direction: column;
         align-items: flex-start;
     }
 
-    button {
-        width: 100%;
-        text-align: center;
+    main {
+        width: 95%;
+        padding: 15px;
+    }
+}
+
+/* ============================================= */
+/* ✅ Styles ONLY for the Login Page (login.html) */
+/* ============================================= */
+body.login-page {
+    background: linear-gradient(to right, #327de6, #1d70ec); /* Blue gradient */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+    color: white;
+}
+
+/* Login Container */
+.login-container {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
+
+/* Title */
+.login-container h1 {
+    font-size: 26px;
+    color: #054A91;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.login-container p {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Buttons */
+.login-container button {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    background: #3A7BD5;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.login-container button:hover {
+    background: #054A91;
+}
+
+/* Responsive Design for Login Page */
+@media (max-width: 480px) {
+    .login-container {
+        width: 90%;
+        padding: 30px;
     }
 
-    #chat-input {
-        font-size: 14px;
+    .login-container h1 {
+        font-size: 22px;
+    }
+
+    .login-container button {
+        font-size: 1em;
         padding: 10px;
-    }
-
-    #send-btn {
-        font-size: 14px;
-        padding: 10px 16px;
     }
 }
