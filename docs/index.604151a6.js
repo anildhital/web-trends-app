@@ -598,11 +598,13 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 },{}],"38sjH":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "db", ()=>db);
+parcelHelpers.export(exports, "db", ()=>db) // ✅ Export `provider`
+;
 parcelHelpers.export(exports, "auth", ()=>auth);
+parcelHelpers.export(exports, "provider", ()=>provider);
 var _app = require("firebase/app");
 var _firestore = require("firebase/firestore");
-var _auth = require("firebase/auth");
+var _auth = require("firebase/auth"); // ✅ Import GoogleAuthProvider
 const firebaseConfig = {
     apiKey: "AIzaSyDpAjzrbDn4GuAoGwAZsSoxOJHGVen6TtM",
     authDomain: "web-trends-2d408.firebaseapp.com",
@@ -612,9 +614,11 @@ const firebaseConfig = {
     appId: "1:164881251778:web:e914a7f7fb88b44dbb6a5b",
     measurementId: "G-92VND4XB35"
 };
+// Initialize Firebase
 const app = (0, _app.initializeApp)(firebaseConfig);
 const db = (0, _firestore.getFirestore)(app);
-const auth = (0, _auth.getAuth)();
+const auth = (0, _auth.getAuth)(app); // ✅ Pass `app` to `getAuth`
+const provider = new (0, _auth.GoogleAuthProvider)(); // ✅ Add GoogleAuthProvider
 
 },{"firebase/app":"aM3Fo","firebase/firestore":"8A4BC","firebase/auth":"79vzg","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aM3Fo":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");

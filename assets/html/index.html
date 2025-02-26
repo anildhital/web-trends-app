@@ -20,7 +20,9 @@
       <!-- Book Collection Section -->
       <section id="book-list">
         <h2>📚 Book Collection</h2>
-        <ul id="books"></ul>
+        <ul id="books">
+          <!-- Books will be dynamically added here -->
+        </ul>
       </section>
 
       <!-- Add New Book Section -->
@@ -59,17 +61,5 @@
     <script type="module" src="../js/firebase.js"></script>
     <script type="module" src="../js/tasks.js"></script>
     <script defer src="../js/service-worker.js"></script>
-
-    <!-- ✅ Ensure Users are Logged In -->
-    <script type="module">
-      import { auth } from "../js/firebase.js";
-      import { onAuthStateChanged } from "firebase/auth";
-
-      onAuthStateChanged(auth, (user) => {
-        if (!user) {
-          window.location.href = "login.html"; // ✅ Redirect if not logged in
-        }
-      });
-    </script>
   </body>
 </html>
