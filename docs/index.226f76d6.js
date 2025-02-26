@@ -598,158 +598,169 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 },{}],"azFBe":[function(require,module,exports,__globalThis) {
 var _firebaseJs = require("./firebase.js");
 var _firestore = require("firebase/firestore");
-var _generativeAi = require("@google/generative-ai");
-const taskInput = document.getElementById("taskInput");
-const addTaskBtn = document.getElementById("addTaskBtn");
-const taskList = document.getElementById("taskList");
-const aiButton = document.getElementById("send-btn");
-const aiInput = document.getElementById("chat-input");
+var _auth = require("firebase/auth");
+var _generativeAi = require("@google/generative-ai"); // 🔹 Import AI
+// References to HTML elements
+const bookForm = document.getElementById("book-form");
+const bookList = document.getElementById("books");
+const signOutButton = document.getElementById("signOutBttn");
+// AI Chatbot Elements
+const chatInput = document.getElementById("chat-input");
+const sendButton = document.getElementById("send-btn");
 const chatHistory = document.getElementById("chat-history");
-const signOutBttn = document.getElementById("signOutBttn");
-const email = JSON.parse(localStorage.getItem("email"));
-var apiKey;
-var genAI;
-var model;
-if (!email) window.location.href = "index.html";
-async function getApiKey() {
-    // let snapshot = await getDoc(doc(db, "apikey", "googlegenai"));
-    apiKey = "AIzaSyDTqMj9LCMTFxTazXiXZBQHL-ns2z-ohX0";
-    genAI = new (0, _generativeAi.GoogleGenerativeAI)(apiKey);
-    model = genAI.getGenerativeModel({
-        model: "gemini-1.5-flash"
+// ✅ AI API Setup
+const API_KEY = "AIzaSyAMP1E9AObYzGRx4OK3n_NgkEEoCqEsK0M"; // 🔹 Replace with your Gemini AI API Key
+const genAI = new (0, _generativeAi.GoogleGenerativeAI)(API_KEY);
+const model = genAI.getGenerativeModel({
+    model: "gemini-1.5-flash"
+});
+// Ensure user is authenticated
+(0, _auth.onAuthStateChanged)((0, _firebaseJs.auth), (user)=>{
+    if (!user) window.location.href = "login.html"; // Redirect if not logged in
+});
+// Function to Render Books from Firestore
+async function renderBooks() {
+    bookList.innerHTML = ""; // Clear existing books
+    const querySnapshot = await (0, _firestore.getDocs)((0, _firestore.collection)((0, _firebaseJs.db), "books"));
+    querySnapshot.forEach((doc)=>{
+        let bookData = doc.data();
+        createBookElement(doc.id, bookData.title, bookData.author, bookData.genre);
     });
 }
-function appendMessage(message) {
-    let history = document.createElement("div");
-    history.textContent = message;
-    history.className = "history";
-    chatHistory.appendChild(history);
-    aiInput.value = "";
+// Function to Create Book Element in the List
+function createBookElement(id, title, author, genre) {
+    let li = document.createElement("li");
+    li.dataset.id = id;
+    // Book details container
+    let bookDetails = document.createElement("div");
+    bookDetails.classList.add("book-details");
+    // Title
+    let titleElement = document.createElement("p");
+    titleElement.textContent = `\u{1F4D6} ${title}`;
+    titleElement.classList.add("book-title");
+    // Author
+    let authorElement = document.createElement("p");
+    authorElement.textContent = `\u{270D}\u{FE0F} ${author}`;
+    // Genre
+    let genreElement = document.createElement("p");
+    genreElement.textContent = `\u{1F4DA} ${genre}`;
+    // Edit Button
+    let editButton = document.createElement("button");
+    editButton.textContent = "\u270F\uFE0F Edit";
+    editButton.classList.add("edit");
+    editButton.addEventListener("click", ()=>editBook(li, id, title, author, genre));
+    // Delete Button
+    let deleteButton = document.createElement("button");
+    deleteButton.textContent = "\uD83D\uDDD1 Delete";
+    deleteButton.classList.add("delete");
+    deleteButton.addEventListener("click", ()=>deleteBook(id));
+    // Append elements
+    bookDetails.appendChild(titleElement);
+    bookDetails.appendChild(authorElement);
+    bookDetails.appendChild(genreElement);
+    li.appendChild(bookDetails);
+    li.appendChild(editButton);
+    li.appendChild(deleteButton);
+    bookList.appendChild(li);
 }
-function ruleChatBot(request) {
-    if (request.startsWith("add task")) {
-        let task = request.replace("add task", "").trim();
-        if (task) {
-            addTask(task);
-            appendMessage("Task " + task + " added!");
-        } else appendMessage("Please specify a task to add.");
-        return true;
-    } else if (request.startsWith("complete")) {
-        let taskName = request.replace("complete", "").trim();
-        if (taskName) {
-            if (removeFromTaskName(taskName)) appendMessage("Task " + taskName + " marked as complete.");
-            else appendMessage("Task not found!");
-        } else appendMessage("Please specify a task to complete.");
-        return true;
-    }
-    return false;
-}
-async function askChatBot(request) {
-    let result = await model.generateContent(request);
-    appendMessage(result.response.text());
-}
-async function addTask(task) {
-    let taskId = await addTaskToFirestore(task);
-    taskInput.value = "";
-    createLiTask(taskId, task);
-}
-async function removeTask(taskId) {
-    await (0, _firestore.updateDoc)((0, _firestore.doc)((0, _firebaseJs.db), "todos", taskId), {
-        completed: true
+// Function to Add a New Book
+bookForm.addEventListener("submit", async (e)=>{
+    e.preventDefault();
+    let title = document.getElementById("title").value;
+    let author = document.getElementById("author").value;
+    let genre = document.getElementById("genre").value;
+    let docRef = await (0, _firestore.addDoc)((0, _firestore.collection)((0, _firebaseJs.db), "books"), {
+        title,
+        author,
+        genre
     });
+    createBookElement(docRef.id, title, author, genre);
+    bookForm.reset(); // Clear form after submission
+});
+// Function to Delete a Book
+async function deleteBook(id) {
+    await (0, _firestore.deleteDoc)((0, _firestore.doc)((0, _firebaseJs.db), "books", id));
+    document.querySelector(`[data-id='${id}']`).remove();
 }
-function removeVisualTask(id) {
-    document.getElementById(id).remove();
-}
-async function renderTasks() {
-    var tasks = await getTasksFromFirestore();
-    taskList.innerHTML = "";
-    let taskArr = [];
-    tasks.forEach((task)=>{
-        taskArr.push({
-            id: task.id,
-            text: task.data().text,
-            completed: task.data().completed
+// Function to Edit a Book
+function editBook(li, id, oldTitle, oldAuthor, oldGenre) {
+    li.innerHTML = `
+        <input type="text" class="edit-title" value="${oldTitle}">
+        <input type="text" class="edit-author" value="${oldAuthor}">
+        <input type="text" class="edit-genre" value="${oldGenre}">
+        <button class="save">\u{1F4BE} Save</button>
+        <button class="cancel">\u{274C} Cancel</button>
+    `;
+    // Get new input fields
+    let newTitleInput = li.querySelector(".edit-title");
+    let newAuthorInput = li.querySelector(".edit-author");
+    let newGenreInput = li.querySelector(".edit-genre");
+    // Save Button Functionality
+    li.querySelector(".save").addEventListener("click", async ()=>{
+        let newTitle = newTitleInput.value;
+        let newAuthor = newAuthorInput.value;
+        let newGenre = newGenreInput.value;
+        await (0, _firestore.updateDoc)((0, _firestore.doc)((0, _firebaseJs.db), "books", id), {
+            title: newTitle,
+            author: newAuthor,
+            genre: newGenre
         });
+        createBookElement(id, newTitle, newAuthor, newGenre);
+        li.remove();
     });
-    taskArr.sort(function(a, b) {
-        return new Date(b.timeCreated) - new Date(a.timeCreated);
-    });
-    taskArr.forEach((task)=>{
-        if (!task.completed) createLiTask(task.id, task.text);
+    // Cancel Button Functionality
+    li.querySelector(".cancel").addEventListener("click", ()=>{
+        createBookElement(id, oldTitle, oldAuthor, oldGenre);
+        li.remove();
     });
 }
-async function addTaskToFirestore(taskText) {
-    let task = await (0, _firestore.addDoc)((0, _firestore.collection)((0, _firebaseJs.db), "todos"), {
-        text: taskText,
-        email: email,
-        completed: false
-    });
-    return task.id;
-}
-async function getTasksFromFirestore() {
-    let q = (0, _firestore.query)((0, _firestore.collection)((0, _firebaseJs.db), "todos"), (0, _firestore.where)("email", "==", email));
-    return await (0, _firestore.getDocs)(q);
-}
-function createLiTask(id, text) {
-    let taskItem = document.createElement("li");
-    taskItem.id = id;
-    taskItem.textContent = text;
-    taskItem.tabIndex = 0;
-    taskItem.setAttribute("name", text.toLowerCase());
-    taskList.appendChild(taskItem);
-}
-function removeFromTaskName(task) {
-    let ele = document.getElementsByName(task);
-    if (ele.length == 0) return false;
-    ele.forEach((e)=>{
-        removeTask(e.id);
-        removeVisualTask(e.id);
-    });
-    return true;
-}
-window.addEventListener("load", async ()=>{
-    getApiKey();
-    renderTasks();
-});
-aiButton.addEventListener("click", async ()=>{
-    let prompt = aiInput.value.trim().toLowerCase();
-    if (prompt) {
-        if (!ruleChatBot(prompt)) askChatBot(prompt);
-    } else appendMessage("Please enter a prompt");
-});
-aiInput.addEventListener("keypress", function(event) {
-    if (event.key === "Enter") aiButton.click();
-});
-addTaskBtn.addEventListener("click", async ()=>{
-    const task = taskInput.value.trim();
-    if (task) await addTask(task);
-    else alert("Please enter a task!");
-});
-taskList.addEventListener("click", async (e)=>{
-    if (e.target.tagName === "LI") {
-        removeTask(e.target.id);
-        removeVisualTask(e.target.id);
+// ✅ AI Chatbot Functionality
+async function askChatBot(prompt) {
+    if (!prompt) {
+        appendMessage("Please enter a question.");
+        return;
     }
-});
-taskInput.addEventListener("keypress", function(event) {
-    if (event.key === "Enter") addTaskBtn.click();
-});
-taskList.addEventListener("keypress", async function(e) {
-    if (e.target.tagName === "LI" && e.key === "Enter") {
-        removeTask(e.target.id);
-        removeVisualTask(e.target.id);
+    appendMessage(`\u{1F9D1}\u{200D}\u{1F4BB} You: ${prompt}`, "user");
+    try {
+        let result = await model.generateContent(prompt);
+        let responseText = result.response.text();
+        appendMessage(`\u{1F916} AI: ${responseText}`, "bot");
+    } catch (error) {
+        console.error("AI Chatbot Error:", error);
+        appendMessage("\u274C Error: Unable to get a response. Try again.");
     }
+    chatInput.value = ""; // Clear input
+}
+// ✅ Append AI Responses to Chat History
+function appendMessage(message, sender = "bot") {
+    let msgDiv = document.createElement("div");
+    msgDiv.textContent = message;
+    msgDiv.className = sender === "user" ? "user-message" : "bot-message";
+    chatHistory.appendChild(msgDiv);
+    chatHistory.scrollTop = chatHistory.scrollHeight; // Auto-scroll
+}
+// ✅ Event Listeners for AI Chatbot
+sendButton.addEventListener("click", ()=>{
+    let prompt = chatInput.value.trim();
+    askChatBot(prompt);
 });
-window.addEventListener("error", function(event) {
-    console.error("Error occurred: ", event.message);
+// Allow Enter Key to Send Message
+chatInput.addEventListener("keypress", function(event) {
+    if (event.key === "Enter") sendButton.click();
 });
-signOutBttn.addEventListener("click", function(event) {
-    localStorage.removeItem("email");
-    window.location.href = "index.html";
+// ✅ Sign Out Function
+signOutButton.addEventListener("click", ()=>{
+    (0, _auth.signOut)((0, _firebaseJs.auth)).then(()=>{
+        localStorage.removeItem("user");
+        window.location.href = "login.html";
+    }).catch((error)=>{
+        console.error("Sign Out Error", error);
+    });
 });
+// ✅ Load books when the page loads
+window.addEventListener("DOMContentLoaded", renderBooks);
 
-},{"./firebase.js":"38sjH","firebase/firestore":"8A4BC","@google/generative-ai":"gKJrW"}],"gKJrW":[function(require,module,exports,__globalThis) {
+},{"./firebase.js":"38sjH","firebase/firestore":"8A4BC","firebase/auth":"79vzg","@google/generative-ai":"gKJrW"}],"gKJrW":[function(require,module,exports,__globalThis) {
 /**
  * Contains the list of OpenAPI data types
  * as defined by https://swagger.io/docs/specification/data-models/data-types/

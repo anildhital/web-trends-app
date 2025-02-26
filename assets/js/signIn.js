@@ -1,44 +1,26 @@
-import { auth, provider } from "./firebase.js"; // ✅ Make sure provider is exported
-import { signInWithPopup, signOut } from "firebase/auth";
+import { auth, provider } from "./firebase.js"; // ✅ Make sure provider is imported
+import { signInWithPopup } from "firebase/auth";
 
-// Ensure document is fully loaded before running
-document.addEventListener("DOMContentLoaded", () => {
-  const googleLoginBtn = document.getElementById("google-login");
-  if (googleLoginBtn) {
-    googleLoginBtn.addEventListener("click", () => {
-      signInWithPopup(auth, provider)
-        .then((result) => {
-          console.log("User logged in:", result.user);
-          window.location.href = "index.html"; // Redirect to homepage
-        })
-        .catch((error) => {
-          console.error("Login failed:", error);
-        });
-    });
-  }
-  // Google Login
-  document.getElementById("google-login").addEventListener("click", () => {
+const googleLoginBtn = document.getElementById("google-login");
+
+if (googleLoginBtn) {
+  googleLoginBtn.addEventListener("click", () => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        console.log("User logged in:", result.user);
-        window.location.href = "index.html"; // Redirect to homepage
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            email: result.user.email,
+            name: result.user.displayName,
+          })
+        );
+        window.location.href = "index.html";
       })
       .catch((error) => {
-        console.error("Login failed:", error);
+        console.error("Google Login Error:", error.message);
+        alert("Google Login Failed. Try again.");
       });
   });
-
-  const logoutBtn = document.getElementById("signOutBttn");
-  if (logoutBtn) {
-    logoutBtn.addEventListener("click", () => {
-      signOut(auth)
-        .then(() => {
-          console.log("User logged out");
-          window.location.href = "login.html";
-        })
-        .catch((error) => {
-          console.error("Logout failed:", error);
-        });
-    });
-  }
-});
+} else {
+  console.error("Google login button not found in the DOM");
+}
